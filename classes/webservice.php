@@ -45,7 +45,8 @@ class webservice {
      * @param string $endpoint the path to the EdSembli URL. If null, use the settings
      */
     public function __construct($endpoint = null) {
-        $this->endpoint_url = 'https://ws-staging.edsembli.com/AB/Private/IGNITE/Webservice/Integration/mwWebSrvStAc.asmx?WSDL';
+        //$this->endpoint_url = 'https://ws-staging.edsembli.com/AB/Private/IGNITE/Webservice/Integration/mwWebSrvStAc.asmx?WSDL';
+        $this->endpoint_url = get_config('auth_edsembli', 'endpoint');
         
         $this->client = new \SoapClient(__DIR__.'/../wsdl.xml', array('soap_version' => SOAP_1_2));
     }
@@ -84,5 +85,35 @@ class webservice {
         //TODO: Log errors here
 
         return $ret->diffgr->StAc_Student->Students->Student_Details;
+    }
+    
+    /*
+     * Returns an array of teacher classes
+     * 
+     * #returns array A list of classes and the teachers assigned
+     */
+    public function GetTeacherClasses($schoolNum) {
+        
+        $response = $this->client->GetTeacherClasses(array('schoolNum' => $schoolNum, 'teacherCode' => ''));
+        
+        $ret = new \SimpleXMLElement('<root>'. str_replace('diffgr:diffgram', 'diffgr', $response->GetTeacherClassesResult->any . '</root>'));
+        
+        //TODO: Log errors here
+        return $ret->diffgr->StAc_TeacherClass->Teacher_Classes->Teacher_Class_Details;
+    }
+    
+    /*
+     * Returns an array of student classes
+     * 
+     * #returns array A list of student section enrollments
+     */
+    public function GetStudentClasses($schoolNum) {
+        
+        $response = $this->client->GetStudentClasses(array('schoolNum' => $schoolNum, 'stuCode' => ''));
+        
+        $ret = new \SimpleXMLElement('<root>'. str_replace('diffgr:diffgram', 'diffgr', $response->GetStudentClassesResult->any . '</root>'));
+        
+        //TODO: Log errors here
+        return $ret->diffgr->StAc_StuClass->Student_Classes->Student_Class_Details;
     }
 }

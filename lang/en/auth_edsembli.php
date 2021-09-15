@@ -24,5 +24,11 @@
  */
 
 $string['auth_edsemblidescription'] = 'This method provides account synchronization with EdSembli SIS.';
+$string['config_emailsuffix'] = 'E-mail suffix';
+$string['config_emailsuffix_desc'] = 'Enter the e-mail domain suffix to use for student accounts in Google.';
+$string['config_endpoint'] = 'End Point URL';
+$string['config_endpoint_desc'] = 'Enter the EdSembli end point URL to the web service.';
+$string['config_schoolnum'] = 'School Number';
+$string['config_schoolnum_desc'] = 'Enter the school number from the school configuration.';
 $string['pluginname'] = 'Edsembli';
 $string['sync_users'] = 'Sync all users with EdSembli';

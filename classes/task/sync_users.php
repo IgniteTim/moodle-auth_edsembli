@@ -74,8 +74,7 @@ class sync_users extends \core\task\scheduled_task {
         }
   
         mtrace('Creating/Updating student accounts...');
-        //SETTING: School numbers
-        $students = $ws->GetStudents('2379');
+        $students = $ws->GetStudents(get_config('auth_edsembli', 'schoolnum'));
         foreach ($students as $student) {
             \auth_edsembli\user::sync($student, 'student');
         }
