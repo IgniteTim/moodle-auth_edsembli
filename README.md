@@ -15,3 +15,4 @@ This plugin is used to sync EdSembli staff and students to Moodle.
 **To Do**
 - Create a logging system. Find comments "//LOG"
 - Delete users
+- Send credential e-mails
